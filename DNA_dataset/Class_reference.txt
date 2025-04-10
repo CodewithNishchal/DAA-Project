@@ -1,0 +1,7 @@
+G protein coupled receptors (Class label: 0)
+Tyrosine kinase (Class label: 1)
+Tyrosine phosphatase (Class label: 2)
+Synthetase (Class label: 3)
+Synthase (Class label: 4)
+Lon channel (Class label: 5)
+Transcription factor (Class label: 6)
