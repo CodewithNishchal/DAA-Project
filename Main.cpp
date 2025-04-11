@@ -11,8 +11,7 @@
 
 using namespace std;
 
-void
-loadDNAFromTxt(
+void loadDNAFromTxt(
     const string &filename,
     vector<string> &sequences,
     vector<int> &classes)
@@ -74,6 +73,14 @@ int main()
     }
 
     // Performing Dynamic Programming LCS method
+
+    // pair<int, MutationSummary> value = mutation_summary(Sequence_byClass[1][10], Sequence_byClass[2][10]);
+    // cout << "Edit Distance: " << value.first << endl;
+    // cout << "Substitutions: " << value.second.substitutions << endl;
+    // cout << "Insertions: " << value.second.insertions << endl;
+    // cout << "Deletions: " << value.second.deletions << endl;
+
+    printLimitedMutations(Sequence_byClass[1][10], Sequence_byClass[2][10], 10);
 
     return 0;
 }
