@@ -44,6 +44,45 @@ void loadDNAFromTxt(
     file.close();
 }
 
+void GetClassSequence(vector<vector<string>> &arr,
+                      vector<string> &class0,
+                      vector<string> &class1,
+                      vector<string> &class2,
+                      vector<string> &class3,
+                      vector<string> &class4,
+                      vector<string> &class5,
+                      vector<string> &class6)
+{
+    for (auto &i : arr[0])
+    {
+        class0.push_back(i);
+    }
+    for (auto &i : arr[1])
+    {
+        class1.push_back(i);
+    }
+    for (auto &i : arr[2])
+    {
+        class2.push_back(i);
+    }
+    for (auto &i : arr[3])
+    {
+        class3.push_back(i);
+    }
+    for (auto &i : arr[4])
+    {
+        class4.push_back(i);
+    }
+    for (auto &i : arr[5])
+    {
+        class5.push_back(i);
+    }
+    for (auto &i : arr[5])
+    {
+        class6.push_back(i);
+    }
+}
+
 int main()
 {
     vector<string> dnaSequences;
@@ -66,32 +105,18 @@ int main()
     // Differentiate class by Sequence
     vector<vector<string>> Sequence_byClass(7);
 
-    for( auto &i : sequences) {
+    for (auto &i : sequences)
+    {
         Sequence_byClass[i.second].push_back(i.first);
     }
 
-    //Print all the class and their Respective DNA 
-    // for (int i = 0; i < Sequence_byClass.size(); ++i)
-    // {
-    //     cout << "Class " << i << " has " << Sequence_byClass[i].size() << " sequences:\n";
-    //     for (const auto &s : Sequence_byClass[i])
-    //     {
-    //         cout << "  " << s << endl;
-    //     }
-    //     cout << "-------------------\n";
-    // }
+    // Performing Dynamic Programming LCS method
 
+    vector<string> human_class0, human_class1, human_class2, human_class3, human_class4, human_class5, human_class6;
 
-    //Performing Dynamic Programming LCS method
-    string dna1 = Sequence_byClass[1][10];
-    string dna2 = Sequence_byClass[1][12];
+    GetClassSequence(Sequence_byClass, human_class0, human_class1, human_class2, human_class3, human_class4, human_class5, human_class6);
 
-    pair<int, string> result = lcsq_dp(dna1, dna2);
-    int length = result.first;
-    string lcsStr = result.second;
-
-    cout << "LCS length: " << length << "\n";
-    cout << "LCS string: " << lcsStr << "\n";
+    cout << human_class1.size();
 
     return 0;
 }
