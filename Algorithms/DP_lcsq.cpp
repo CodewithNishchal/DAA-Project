@@ -4,6 +4,8 @@
 #include<algorithm>
 using namespace std;
 
+vector<string> class_Description = {"G protein coupled receptors", "Tyrosine kinase", "Tyrosine phosphatase", "Synthetase", "Synthase", "Lon channel", "Transcription factor"};
+
 pair<int, string> lcsq_dp(const string &a, const string &b)
 {
     int n = a.length(), m = b.length();
@@ -44,3 +46,66 @@ pair<int, string> lcsq_dp(const string &a, const string &b)
 
     return {dp[n][m], lcs};
 }
+
+// Performing Intra-Class comparisons
+
+void Intra_Class_Comparison(vector<vector<string>> Sequence_byClass)
+{
+    for (int c = 0; c < 7; ++c)
+    {
+        vector<string> &group = Sequence_byClass[c];
+        int totalLCS = 0, count = 0;
+
+        for (size_t i = 0; i < 20; ++i)
+        {
+            for (size_t j = i + 1; j < 20; ++j)
+            {
+                pair<int, string> value = lcsq_dp(group[i], group[j]);
+                totalLCS += value.first;
+                count++;
+            }
+        }
+
+        if (count > 0)
+        {
+            cout << "Class " << c << " | Avg LCS Length: " << (double)totalLCS / count << endl;
+        }
+        else
+        {
+            cout << "Class " << c << " has insufficient data for comparison.\n";
+        }
+    }
+} 
+
+// Performing Intra-Class comparisons
+
+void Inter_Class_Comparison(vector<vector<string>> Sequence_byClass)
+{
+    for (int c1 = 0; c1 < 7; ++c1)
+    {
+        for (int c2 = c1 + 1; c2 < 7; ++c2)
+        {
+            vector<string> &g1 = Sequence_byClass[c1];
+            vector<string> &g2 = Sequence_byClass[c2];
+
+            int totalLCS = 0, count = 0;
+
+            for (int i = 0; i < min(10, (int)g1.size()); ++i)
+            {
+                for (int j = 0; j < min(10, (int)g2.size()); ++j)
+                {
+                    pair<int, string> value = lcsq_dp(g1[i], g2[j]);
+                    totalLCS += value.first;
+                    count++;
+                }
+            }
+
+            if (count > 0)
+            {
+                cout << "Avg LCS between Class " << c1 << " and Class " << c2 << ": "
+                     << (double)totalLCS / count << endl;
+            }
+        }
+    }
+}
+
