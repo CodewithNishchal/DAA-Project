@@ -78,8 +78,9 @@ void differentiateBySequence(
 
 void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
 {
-    cout << "Welcome to the Human DNA Analysis Tool\n";
+    cout << "\nWelcome to the Human DNA Analysis Tool\n";
     cout << "Analyzing 7 biological DNA classes using advanced algorithms.\n";
+    cout << "\n";
     for (int i = 0; i < 7; i++)
     {
         cout << i << ". " << class_Description[i] << endl;
