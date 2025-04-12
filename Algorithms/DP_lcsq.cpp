@@ -49,16 +49,40 @@ pair<int, string> lcsq_dp(const string &a, const string &b)
 
 // Performing Intra-Class comparisons
 
-void Intra_Class_Comparison(vector<vector<string>> Sequence_byClass)
+void Intra_Class_Comparison(const vector<vector<string>> &Sequence_byClass)
 {
-    for (int c = 0; c < 7; ++c)
+    set<int> selectedClasses;
+    int n;
+
+    cout << "Enter the number of classes (0-6) to compare internally: ";
+    cin >> n;
+
+    cout << "Enter " << n << " class numbers (0 to 6): ";
+    for (int i = 0; i < n; ++i)
     {
-        vector<string> &group = Sequence_byClass[c];
+        int classNum;
+        cin >> classNum;
+        if (classNum >= 0 && classNum <= 6)
+            selectedClasses.insert(classNum);
+        else
+            cout << "Invalid class number: " << classNum << " (Skipping)\n";
+    }
+
+    for (int c : selectedClasses)
+    {
+        const vector<string> &group = Sequence_byClass[c];
+
+        if (group.size() < 2)
+        {
+            cout << "Class " << c << " has insufficient data for comparison.\n";
+            continue;
+        }
+
         int totalLCS = 0, count = 0;
 
-        for (size_t i = 0; i < 20; ++i)
+        for (size_t i = 0; i < min((size_t)20, group.size()); ++i)
         {
-            for (size_t j = i + 1; j < 20; ++j)
+            for (size_t j = i + 1; j < min((size_t)20, group.size()); ++j)
             {
                 pair<int, string> value = lcsq_dp(group[i], group[j]);
                 totalLCS += value.first;
@@ -66,35 +90,49 @@ void Intra_Class_Comparison(vector<vector<string>> Sequence_byClass)
             }
         }
 
-        if (count > 0)
-        {
-            cout << "Class " << c << " | Avg LCS Length: " << (double)totalLCS / count << endl;
-        }
-        else
-        {
-            cout << "Class " << c << " has insufficient data for comparison.\n";
-        }
+        cout << "Class " << c << " | Avg LCS Length: "
+             << ((count > 0) ? (double)totalLCS / count : 0) << endl;
     }
-} 
+}
 
 // Performing Intra-Class comparisons
 
-void Inter_Class_Comparison(vector<vector<string>> Sequence_byClass)
+void Inter_Class_Comparison(const vector<vector<string>> &Sequence_byClass)
 {
-    for (int c1 = 0; c1 < 7; ++c1)
+    set<int> selectedClasses;
+    int n;
+
+    cout << "Enter the number of classes you want to compare: ";
+    cin >> n;
+
+    cout << "Enter " << n << " class numbers (0 to 6): ";
+    for (int i = 0; i < n; ++i)
     {
-        for (int c2 = c1 + 1; c2 < 7; ++c2)
+        int classNum;
+        cin >> classNum;
+        if (classNum >= 0 && classNum <= 6)
+            selectedClasses.insert(classNum);
+        else
+            cout << "Invalid class number: " << classNum << " (Skipping)\n";
+    }
+
+    vector<int> classes(selectedClasses.begin(), selectedClasses.end());
+
+    for (int i = 0; i < classes.size(); ++i)
+    {
+        for (int j = i + 1; j < classes.size(); ++j)
         {
-            vector<string> &g1 = Sequence_byClass[c1];
-            vector<string> &g2 = Sequence_byClass[c2];
+            int c1 = classes[i], c2 = classes[j];
+            const vector<string> &g1 = Sequence_byClass[c1];
+            const vector<string> &g2 = Sequence_byClass[c2];
 
             int totalLCS = 0, count = 0;
 
-            for (int i = 0; i < min(10, (int)g1.size()); ++i)
+            for (int x = 0; x < min(10, (int)g1.size()); ++x)
             {
-                for (int j = 0; j < min(10, (int)g2.size()); ++j)
+                for (int y = 0; y < min(10, (int)g2.size()); ++y)
                 {
-                    pair<int, string> value = lcsq_dp(g1[i], g2[j]);
+                    pair<int, string> value = lcsq_dp(g1[x], g2[y]);
                     totalLCS += value.first;
                     count++;
                 }
@@ -109,6 +147,14 @@ void Inter_Class_Comparison(vector<vector<string>> Sequence_byClass)
     }
 }
 
+// Base function that takes 2 classes and calls printMutation
+void chooseBaseClasses(const vector<vector<string>> &Sequence_byClass)
+{
+    cout << "Enter the two classes to be compared (0-6) ";
+    int string1, string2;
+    cin >> string1 >> string2;
+    printLimitedMutations(Sequence_byClass[string1][20], Sequence_byClass[string2][20]);
+}
 
 // Returns the edit distance and step-by-step mutation operations
 void printLimitedMutations(const string &A, const string &B, int maxStepsToPrint)
@@ -175,10 +221,8 @@ void printLimitedMutations(const string &A, const string &B, int maxStepsToPrint
         cout << "... (" << totalSteps - stepsToPrint << " more steps omitted)\n";
 }
 
-
-
-// Update the function to count types of mutations : 
-pair<int, MutationSummary> mutation_summary(const string &A, const string &B)
+// Update the function to count types of mutations :
+    pair<int, MutationSummary> mutation_summary(const string &A, const string &B)
 {
     int m = A.size(), n = B.size();
     vector<vector<int>> dp(m + 1, vector<int>(n + 1));
@@ -222,3 +266,4 @@ pair<int, MutationSummary> mutation_summary(const string &A, const string &B)
 
     return {dp[m][n], summary};
 }
+
