@@ -11,7 +11,13 @@ using namespace std;
 
 pair<int, int> values;
 pair<int, MutationSummary> result;
-vector<string> class_Description = {"G protein coupled receptors", "Tyrosine kinase", "Tyrosine phosphatase", "Synthetase", "Synthase", "Lon channel", "Transcription factor"};
+vector<string> class_Description = {
+    "G protein coupled receptors",
+    "Tyrosine kinase",
+    "Tyrosine phosphatase",
+    "Synthetase", "Synthase",
+    "Lon channel",
+    "Transcription factor"};
 
 void loadDNAFromTxt(
     const string &filename,
@@ -49,8 +55,7 @@ void loadDNAFromTxt(
 void combineAndSort(
     vector<pair<string, int>> &sequences,
     vector<string> &dnaSequences,
-    vector<int> &classLabels
-) 
+    vector<int> &classLabels)
 {
     for (size_t i = 0; i < dnaSequences.size(); ++i)
     {
@@ -59,7 +64,6 @@ void combineAndSort(
 
     sort(sequences.begin(), sequences.end(), [](const pair<string, int> &a, const pair<string, int> &b)
          { return a.second < b.second; });
-    
 }
 
 void differentiateBySequence(
@@ -76,11 +80,12 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
 {
     cout << "Welcome to the Human DNA Analysis Tool\n";
     cout << "Analyzing 7 biological DNA classes using advanced algorithms.\n";
-    for (int i = 0; i < 7;i++) {
-        cout << i+1 << ". " << class_Description[i] << endl;
+    for (int i = 0; i < 7; i++)
+    {
+        cout << i << ". " << class_Description[i] << endl;
     }
 
-        int choice;
+    int choice;
     do
     {
         cout << "\n-----------------------------------------"
@@ -100,54 +105,54 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
         switch (choice)
         {
         case 1:
-            {
-                cout << "\n[INFO] Intra-Class LCS Comparison: Comparing sequences *within* the same class using Dynamic Programming.\n";
-                Intra_Class_Comparison(Sequence_byClass);
-                break;
-            }
+        {
+            cout << "\n[INFO] Intra-Class LCS Comparison: Comparing sequences *within* the same class using Dynamic Programming.\n";
+            Intra_Class_Comparison(Sequence_byClass);
+            break;
+        }
         case 2:
-            {
-                cout << "\n[INFO] Inter-Class LCS Comparison: Comparing sequences *between* different classes using DP.\n";
-                Inter_Class_Comparison(Sequence_byClass);
-                break;
-            }
+        {
+            cout << "\n[INFO] Inter-Class LCS Comparison: Comparing sequences *between* different classes using DP.\n";
+            Inter_Class_Comparison(Sequence_byClass);
+            break;
+        }
         case 3:
-            {
-                cout << "\n[INFO] Mutation Analysis: Showing number and type of mutations between two sequences.\n";
-                values = chooseBaseClasses(Sequence_byClass);
-                printLimitedMutations(Sequence_byClass[values.first][20], Sequence_byClass[values.second][20]);
-                cout << "\n";
-                result = mutation_summary(Sequence_byClass[values.first][20], Sequence_byClass[values.second][20]); // wrapper that calls both printLimitedMutations + mutation_summary
-                cout << "Edit Distance: " << result.first << endl;
-                cout << "Insertions: " << result.second.insertions << endl;
-                cout << "Deletions: " << result.second.deletions << endl;
-                cout << "Substitutions: " << result.second.substitutions << endl;
-                break;
-            }
+        {
+            cout << "\n[INFO] Mutation Analysis: Showing number and type of mutations between two sequences.\n";
+            values = chooseBaseClasses(Sequence_byClass);
+            printLimitedMutations(Sequence_byClass[values.first][20], Sequence_byClass[values.second][20]);
+            cout << "\n";
+            result = mutation_summary(Sequence_byClass[values.first][20], Sequence_byClass[values.second][20]); // wrapper that calls both printLimitedMutations + mutation_summary
+            cout << "Edit Distance: " << result.first << endl;
+            cout << "Insertions: " << result.second.insertions << endl;
+            cout << "Deletions: " << result.second.deletions << endl;
+            cout << "Substitutions: " << result.second.substitutions << endl;
+            break;
+        }
         case 4:
-            {
-                cout << "\n[INFO] Exhaustive LCS Search: Finding *all* possible longest common subsequences (backtracking based).\n";
-                // backtracking function
-                break;
-            }
+        {
+            cout << "\n[INFO] Exhaustive LCS Search: Finding *all* possible longest common subsequences (backtracking based).\n";
+            // backtracking function
+            break;
+        }
         case 5:
-            {
-                cout << "\n[INFO] DNA Assembly Simulation: Approximating full DNA from fragments using a greedy strategy.\n";
-                // greedy
-                break;
-            }
+        {
+            cout << "\n[INFO] DNA Assembly Simulation: Approximating full DNA from fragments using a greedy strategy.\n";
+            // greedy
+            break;
+        }
         case 6:
-            {
-                cout << "\n[INFO] Pattern Detection: Using Trie for common prefix/suffix and repeat finding in sequences.\n";
-                // prefix/suffix detection
-                break;
-            }
+        {
+            cout << "\n[INFO] Pattern Detection: Using Trie for common prefix/suffix and repeat finding in sequences.\n";
+            // prefix/suffix detection
+            break;
+        }
         case 7:
-            {
-                cout << "\n[INFO] Efficient LCS (Divide and Conquer): Calculating LCS using less memory and better performance on long sequences.\n";
-                // divide and conquer variant
-                break;
-            }
+        {
+            cout << "\n[INFO] Efficient LCS (Divide and Conquer): Calculating LCS using less memory and better performance on long sequences.\n";
+            // divide and conquer variant
+            break;
+        }
         case 0:
             cout << "Exiting.\n";
             break;
