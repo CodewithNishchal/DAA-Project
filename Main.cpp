@@ -19,7 +19,6 @@ int main()
 
     // Step 0: Getting all the sequences from human DNA dataset
     loadDNAFromTxt("DNA_dataset/human.txt", dnaSequences, classLabels);
-    loadDNAFromTxt("DNA_dataset/chimpanzee.txt", chimpanzee, chim_labels);
 
     // Step 1: Combine and sort into vector of pairs
     vector<pair<string, int>> sequences;
