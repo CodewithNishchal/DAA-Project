@@ -9,6 +9,7 @@
 
 using namespace std;
 
+
 void loadDNAFromTxt(
     const string &filename,
     vector<string> &sequences,
@@ -23,5 +24,8 @@ void combineAndSort(
 void differentiateBySequence(
     vector<vector<string>> &Sequence_byClass,
     vector<pair<string, int>> &sequences);
+
+void startTheAnalysis(
+    vector<vector<string>> &Sequence_byClass);
 
 #endif // UTILS_H

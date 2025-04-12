@@ -4,8 +4,7 @@
 #include<algorithm>
 using namespace std;
 
-vector<string> class_Description = {"G protein coupled receptors", "Tyrosine kinase", "Tyrosine phosphatase", "Synthetase", "Synthase", "Lon channel", "Transcription factor"};
-
+//Basic LCS function
 pair<int, string> lcsq_dp(const string &a, const string &b)
 {
     int n = a.length(), m = b.length();
@@ -48,7 +47,6 @@ pair<int, string> lcsq_dp(const string &a, const string &b)
 }
 
 // Performing Intra-Class comparisons
-
 void Intra_Class_Comparison(const vector<vector<string>> &Sequence_byClass)
 {
     set<int> selectedClasses;
@@ -102,8 +100,14 @@ void Inter_Class_Comparison(const vector<vector<string>> &Sequence_byClass)
     set<int> selectedClasses;
     int n;
 
-    cout << "Enter the number of classes you want to compare: ";
+    cout << "Enter the number of classes you want to compare (<= 7): ";
     cin >> n;
+
+    if(n > 7) {
+        cout << "number of classes must be less than 7, Retry\n";
+        Inter_Class_Comparison(Sequence_byClass);
+        return;
+    }
 
     cout << "Enter " << n << " class numbers (0 to 6): ";
     for (int i = 0; i < n; ++i)
@@ -148,12 +152,13 @@ void Inter_Class_Comparison(const vector<vector<string>> &Sequence_byClass)
 }
 
 // Base function that takes 2 classes and calls printMutation
-void chooseBaseClasses(const vector<vector<string>> &Sequence_byClass)
+pair<int,int> chooseBaseClasses(const vector<vector<string>> &Sequence_byClass)
 {
     cout << "Enter the two classes to be compared (0-6) ";
     int string1, string2;
     cin >> string1 >> string2;
-    printLimitedMutations(Sequence_byClass[string1][20], Sequence_byClass[string2][20]);
+    pair<int, int> values = {string1, string2};
+    return values;
 }
 
 // Returns the edit distance and step-by-step mutation operations
@@ -222,7 +227,7 @@ void printLimitedMutations(const string &A, const string &B, int maxStepsToPrint
 }
 
 // Update the function to count types of mutations :
-    pair<int, MutationSummary> mutation_summary(const string &A, const string &B)
+pair<int, MutationSummary> mutation_summary(const string &A, const string &B)
 {
     int m = A.size(), n = B.size();
     vector<vector<int>> dp(m + 1, vector<int>(n + 1));

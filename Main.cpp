@@ -23,17 +23,14 @@ int main()
 
     // Step 1: Combine and sort into vector of pairs
     vector<pair<string, int>> sequences;
-
     combineAndSort(sequences, dnaSequences, classLabels);
 
     // Differentiate class by Sequence
     vector<vector<string>> Sequence_byClass(7);
-
     differentiateBySequence( Sequence_byClass, sequences);
 
     // Performing Dynamic Programming LCS method
-
-    chooseBaseClasses(Sequence_byClass);
+    startTheAnalysis(Sequence_byClass);
 
     return 0;
 }
