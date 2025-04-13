@@ -5,5 +5,6 @@
 using namespace std;
 
 // Function Declarations here
+string greedy_dna_assembly(vector<string> &fragments);
 
 #endif
