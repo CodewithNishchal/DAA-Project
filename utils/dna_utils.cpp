@@ -16,7 +16,7 @@ vector<string> class_Description = {
     "Tyrosine kinase",
     "Tyrosine phosphatase",
     "Synthetase", "Synthase",
-    "Lon channel",
+    "Ion channel",
     "Transcription factor"};
 
 void loadDNAFromTxt(
