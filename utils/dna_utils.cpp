@@ -62,8 +62,7 @@ void combineAndSort(
         sequences.push_back({dnaSequences[i], classLabels[i]});
     }
 
-    sort(sequences.begin(), sequences.end(), [](const pair<string, int> &a, const pair<string, int> &b)
-         { return a.second < b.second; });
+    sort(sequences.begin(), sequences.end(), [](const pair<string, int> &a, const pair<string, int> &b){ return a.second < b.second; });
 }
 
 void differentiateBySequence(
@@ -89,8 +88,7 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
     int choice;
     do
     {
-        cout << "\n-----------------------------------------"
-             << endl;
+        cout << "\n-----------------------------------------"<< endl;
         cout << "\n--- DNA Sequence Analysis Tool ---\n";
         cout << "1. Intra-Class Similarity Comparison\n";
         cout << "2. Inter-Class Similarity Comparison\n";
@@ -139,8 +137,25 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
         case 5:
         {
             cout << "\n[INFO] DNA Assembly Simulation: Approximating full DNA from fragments using a greedy strategy.\n";
-            // greedy
+            int c;
+            cout << "Enter class number to simulate assembly (0–6): ";
+            cin >> c;
+
+            if (c < 0 || c > 6 || Sequence_byClass[c].size() < 20)
+            {
+                cout << "Invalid class number or not enough sequences in class.\n";
+                break;
+            }
+
+            // Use only the first 20 sequences
+            vector<string> fragments(Sequence_byClass[c].begin(), Sequence_byClass[c].begin() + 20);
+            random_shuffle(fragments.begin(), fragments.end()); // simulate unordered fragments
+
+            string assembled = greedy_dna_assembly(fragments);
+            cout << "Assembled DNA sequence:\n"<< assembled << "\n";
+            cout << "Length: " << assembled.length() << "\n";
             break;
+
         }
         case 6:
         {
