@@ -151,7 +151,12 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
         case 7:
         {
             cout << "\n[INFO] Efficient LCS (Divide and Conquer): Calculating LCS using less memory and better performance on long sequences.\n";
-            // divide and conquer variant
+            values = chooseBaseClasses(Sequence_byClass);
+            pair<int, string> result = lcsq_divide_conquer(Sequence_byClass[values.first][20], Sequence_byClass[values.second][20]);
+            cout << "LCS Length: " << result.first << "\n";
+            cout << "LCS String: " << result.second << "\n";
+            break;
+
             break;
         }
         case 0:

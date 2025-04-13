@@ -5,5 +5,6 @@
 using namespace std;
 
 // Function Declarations here
+pair<int, string> lcsq_divide_conquer(const string &a, const string &b);
 
 #endif
