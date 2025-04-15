@@ -177,7 +177,17 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
         case 6:
         {
             cout << "\n[INFO] Pattern Detection: Using Trie for common prefix/suffix and repeat finding in sequences.\n";
-            // prefix/suffix detection
+            int c;
+            cout << "Enter class number to analyze (0–6): ";
+            cin >> c;
+
+            if (c < 0 || c > 6 || Sequence_byClass[c].empty())
+            {
+                cout << "Invalid class number or no sequences found.\n";
+                break;
+            }
+
+            analyzeCommonPrefixSuffix(Sequence_byClass[c]);
             break;
         }
         case 7:
