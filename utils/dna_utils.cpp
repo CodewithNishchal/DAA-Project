@@ -131,9 +131,26 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
         case 4:
         {
             cout << "\n[INFO] Exhaustive LCS Search: Finding *all* possible longest common subsequences (backtracking based).\n";
-            // backtracking function
+            values = chooseBaseClasses(Sequence_byClass);
+        
+            const string &A = Sequence_byClass[values.first][20];
+            const string &B = Sequence_byClass[values.second][20];
+        
+            set<string> motifs = getAllLCS(A, B);
+            cout << "Number of motifs (LCS variants): " << motifs.size() << "\n";
+            cout << "Sample motifs:\n";
+        
+            int shown = 0;
+            for (const string &motif : motifs)
+            {
+                cout << "- " << motif << "\n";
+                if (++shown == 10) break;
+            }
+            cout << "[Only first 10 shown]\n";
+        
             break;
         }
+        
         case 5:
         {
             cout << "\n[INFO] DNA Assembly Simulation: Approximating full DNA from fragments using a greedy strategy.\n";

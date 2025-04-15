@@ -4,6 +4,8 @@
 #include <string>
 using namespace std;
 
-//Function Declarations here
+void backtrackAllLCS(const vector<vector<int>> &dp, const string &X, const string &Y, int i, int j, string lcs, set<string> &all_lcs);
+set<string> getAllLCS(const string &X, const string &Y);
+
 
 #endif
