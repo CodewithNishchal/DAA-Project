@@ -62,7 +62,8 @@ void combineAndSort(
         sequences.push_back({dnaSequences[i], classLabels[i]});
     }
 
-    sort(sequences.begin(), sequences.end(), [](const pair<string, int> &a, const pair<string, int> &b){ return a.second < b.second; });
+    sort(sequences.begin(), sequences.end(), [](const pair<string, int> &a, const pair<string, int> &b)
+         { return a.second < b.second; });
 }
 
 void differentiateBySequence(
@@ -88,7 +89,7 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
     int choice;
     do
     {
-        cout << "\n-----------------------------------------"<< endl;
+        cout << "\n-----------------------------------------" << endl;
         cout << "\n--- DNA Sequence Analysis Tool ---\n";
         cout << "1. Intra-Class Similarity Comparison\n";
         cout << "2. Inter-Class Similarity Comparison\n";
@@ -132,25 +133,26 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
         {
             cout << "\n[INFO] Exhaustive LCS Search: Finding *all* possible longest common subsequences (backtracking based).\n";
             values = chooseBaseClasses(Sequence_byClass);
-        
+
             const string &A = Sequence_byClass[values.first][20];
             const string &B = Sequence_byClass[values.second][20];
-        
+
             set<string> motifs = getAllLCS(A, B);
             cout << "Number of motifs (LCS variants): " << motifs.size() << "\n";
             cout << "Sample motifs:\n";
-        
+
             int shown = 0;
             for (const string &motif : motifs)
             {
                 cout << "- " << motif << "\n";
-                if (++shown == 10) break;
+                if (++shown == 10)
+                    break;
             }
             cout << "[Only first 10 shown]\n";
-        
+
             break;
         }
-        
+
         case 5:
         {
             cout << "\n[INFO] DNA Assembly Simulation: Approximating full DNA from fragments using a greedy strategy.\n";
@@ -169,27 +171,33 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
             random_shuffle(fragments.begin(), fragments.end()); // simulate unordered fragments
 
             string assembled = greedy_dna_assembly(fragments);
-            cout << "Assembled DNA sequence:\n"<< assembled << "\n";
+            cout << "Assembled DNA sequence:\n"
+                 << assembled << "\n";
             cout << "Length: " << assembled.length() << "\n";
             break;
-
         }
         case 6:
         {
             cout << "\n[INFO] Pattern Detection: Using Trie for common prefix/suffix and repeat finding in sequences.\n";
-            int c;
-            cout << "Enter class number to analyze (0–6): ";
-            cin >> c;
+            int c1, c2;
+            cout << "Enter first class number (0-6): ";
+            cin >> c1;
+            cout << "Enter second class number (0-6): ";
+            cin >> c2;
 
-            if (c < 0 || c > 6 || Sequence_byClass[c].empty())
+            if (c1 < 0 || c1 > 6 || c2 < 0 || c2 > 6 || Sequence_byClass[c1].empty() || Sequence_byClass[c2].empty())
             {
-                cout << "Invalid class number or no sequences found.\n";
+                cout << "Invalid class numbers or sequences not found.\n";
                 break;
             }
 
-            analyzeCommonPrefixSuffix(Sequence_byClass[c]);
+            vector<string> combined = Sequence_byClass[c1];
+            combined.insert(combined.end(), Sequence_byClass[c2].begin(), Sequence_byClass[c2].end());
+
+            analyzeCommonPrefixSuffix(combined);
             break;
         }
+
         case 7:
         {
             cout << "\n[INFO] Efficient LCS (Divide and Conquer): Calculating LCS using less memory and better performance on long sequences.\n";
