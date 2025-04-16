@@ -157,7 +157,7 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
         {
             cout << "\n[INFO] DNA Assembly Simulation: Approximating full DNA from fragments using a greedy strategy.\n";
             int c;
-            cout << "Enter class number to simulate assembly (0–6): ";
+            cout << "Enter class number to simulate assembly (0-6): ";
             cin >> c;
 
             if (c < 0 || c > 6 || Sequence_byClass[c].size() < 20)
