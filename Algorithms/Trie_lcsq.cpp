@@ -33,7 +33,6 @@ void analyzeCommonPrefixSuffix(const vector<string>& sequences) {
 
     int total = sequences.size();
 
-    // ---------- PREFIX ----------
     TrieNode* prefixRoot = new TrieNode();
     for (string s : sequences) {
         s.erase(remove_if(s.begin(), s.end(), ::isspace), s.end());  // Remove whitespace
@@ -41,7 +40,6 @@ void analyzeCommonPrefixSuffix(const vector<string>& sequences) {
     }
     string prefix = longestCommon(prefixRoot, total, 0.8);
 
-    // ---------- SUFFIX ----------
     TrieNode* suffixRoot = new TrieNode();
     for (string s : sequences) {
         s.erase(remove_if(s.begin(), s.end(), ::isspace), s.end());  // Remove whitespace
@@ -51,7 +49,6 @@ void analyzeCommonPrefixSuffix(const vector<string>& sequences) {
     string suffix = longestCommon(suffixRoot, total, 0.8);
     reverse(suffix.begin(), suffix.end());
 
-    // ---------- OUTPUT ----------
     cout << "\n[RESULT] Longest Common Prefix: " << (prefix.empty() ? "None" : prefix) << endl;
     cout << "[RESULT] Longest Common Suffix: " << (suffix.empty() ? "None" : suffix) << endl;
 }

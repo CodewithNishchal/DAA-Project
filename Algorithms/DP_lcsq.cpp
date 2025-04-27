@@ -93,7 +93,7 @@ void Intra_Class_Comparison(const vector<vector<string>> &Sequence_byClass)
     }
 }
 
-// Performing Intra-Class comparisons
+// Performing Inter-Class comparisons
 
 void Inter_Class_Comparison(const vector<vector<string>> &Sequence_byClass)
 {

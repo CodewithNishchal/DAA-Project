@@ -149,7 +149,6 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
                     break;
             }
             cout << "[Only first 10 shown]\n";
-
             break;
         }
 
@@ -205,8 +204,6 @@ void startTheAnalysis(vector<vector<string>> &Sequence_byClass)
             pair<int, string> result = lcsq_divide_conquer(Sequence_byClass[values.first][20], Sequence_byClass[values.second][20]);
             cout << "LCS Length: " << result.first << "\n";
             cout << "LCS String: " << result.second << "\n";
-            break;
-
             break;
         }
         case 0:
