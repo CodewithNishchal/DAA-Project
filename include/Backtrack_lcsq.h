@@ -4,8 +4,7 @@
 #include <string>
 using namespace std;
 
-void backtrackAllLCS(const vector<vector<int>> &dp, const string &X, const string &Y, int i, int j, string lcs, set<string> &all_lcs);
-set<string> getAllLCS(const string &X, const string &Y);
-
+void backtrackAllLCS(const vector<vector<int>> &dp, const string &X, const string &Y, int i, int j, string lcs, set<string> &all_lcs, int max_motifs);
+set<string> getAllLCS(const string &X, const string &Y, int max_motifs);
 
 #endif
